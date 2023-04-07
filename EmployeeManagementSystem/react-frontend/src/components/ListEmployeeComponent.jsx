@@ -19,6 +19,15 @@ function ListEmployeeComponent() {
     const editEmployee = (id) => {
         navigate(`/update-employee/${id}`);
     };
+    const deleteEmployee = (id) => {
+        EmployeeService.deleteEmployee(id).then(res =>{
+            setEmployees(employees.filter(employee => employee.id !== id))
+        })
+    };
+
+    const viewEmployee = (id) => {
+        navigate(`/view-employee/${id}`);
+    };
 
     return (
         <div>
@@ -44,8 +53,10 @@ function ListEmployeeComponent() {
                             <td>{employee.firstName}</td>
                             <td>{employee.lastName}</td>
                             <td>{employee.emailId}</td>
-                            <td>
+                            <td style={{display:"flex",}}>
                                 <button onClick={() => editEmployee(employee.id)} className="btn btn-info">Update</button>
+                                <button style={{marginLeft:"0.8vw"}} onClick={() => deleteEmployee(employee.id)} className="btn btn-danger">Delete</button>
+                                <button style={{marginLeft:"0.8vw"}} onClick={() => viewEmployee(employee.id)} className="btn btn-info">View</button>
                             </td>
                         </tr>
                     ))}
